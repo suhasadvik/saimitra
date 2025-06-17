@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Assistant - SSSLS Gurukulam</title>
+  <link rel="icon" type="image/png" href="SSSLS Gurukulam Logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Times New Roman', serif;
+      background-image: url('campus.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #2c1e1e;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+      z-index: -1;
+    }
+    header {
+      background-color: rgba(94, 25, 37, 0.95);
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+    }
+    .three-images-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 10px;
+    }
+    .three-images-row img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .three-images-row img:hover {
+      transform: scale(1.05);
+    }
+    header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      margin: 0;
+    }
+    .quote {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      color: #f5c542;
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 800px;
+    }
+    .intro, .bio, .facilities, .heads, .location {
+      background: rgba(255,255,255,0.9);
+      margin: 20px auto;
+      max-width: 900px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .intro h2, .bio h2, .facilities h2, .heads h2, .location h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      color: #5e1925;
+    }
+    .intro p, .bio p, .facilities ul, .heads ul, .location p {
+      font-size: 18px;
+      color: #000;
+      line-height: 1.5;
+    }
+    .facilities ul, .heads ul {
+      list-style: disc inside;
+      padding-left: 0;
+    }
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #5e1925;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      z-index: 10;
+    }
+    .chat-window {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: rgba(255,255,255,0.95);
+      border: 2px solid #5e1925;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 10;
+    }
+    .chat-header {
+      background: #5e1925;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-weight: bold;
+    }
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #fafafa;
+    }
+    .chat-input {
+      border-top: 1px solid #ccc;
+      display: flex;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+    }
+    .chat-input button {
+      background: #5e1925;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+    .message.user {
+      align-self: flex-end;
+      background: #ffd9d9;
+    }
+    .message.bot {
+      align-self: flex-start;
+      background: #fff3cd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="three-images-row">
+      <img src="baba.jpg" alt="Sri Sathya Sai Baba">
+      <img src="SSSLS Gurukulam Logo.png" alt="Campus Logo">
+      <img src="sadguru.jpg" alt="Sadguru Sri Madhusudhan Sai">
+    </div>
+    <h1>Sri Sathya Sai Sharadaniketanam, Mandya</h1>
+  </header>
+
+  <div class="quote">
+    “The end of education is character.”<br>— Sadguru Sri Madhusudhana Sai
+  </div>
+
+<div class="intro">
+  <h2>Campus Chat Assistant</h2>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+    <img src="Robo.png" alt="Sri Sathya Sai Sharadaniketanam Campus" style="width: 200px; height: 150px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" />
+    <p style="flex: 1; font-size: 18px;">
+      Welcome! Welcome to the Gurukulam Chatbot! Here, ancient Indian wisdom meets modern education. Curious about Campus life, facilities, or daily routines? Ask me anything—I'm here to guide you. From serene surroundings to inspiring leadership, there's so much to explore.  
+      Let’s begin your journey into holistic learning!
+      <br /><br />
+      <span style="display: inline-block; margin-top: 10px; background: #e8f4ff; padding: 10px 15px; border-left: 5px solid #007BFF; border-radius: 8px; font-weight: bold; font-size: 16px;">
+        📞 Have any doubts or queries? Call us at 
+        <a href="tel:+917022661771" style="color: #007BFF; text-decoration: none;">+91 70226 61771</a>
+      </span>
+    </p>
+  </div>
+</div>
+
+  <div class="bio">
+     <h2>About Sadguru Sri Madhusudhan Sai</h2>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+    <img src="swami.jpg" alt="Sri Sathya Sai Sharadaniketanam Campus" style="width: 200px; height: 150px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" />
+    <p style="flex: 1; font-size: 18px;">
+      Sadguru Sri Madhusudhan Sai has founded over 30 campuses and multiple hospitals worldwide, offering free, values-based education and service since 2011.
+
+  </div>
+
+<div class="bio">
+  <h2> About Campus</h2>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+    <img src="overview.jpg" alt="Sri Sathya Sai Sharadaniketanam Campus" style="width: 200px; height: 150px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" />
+    <p style="flex: 1; font-size: 18px;">
+      Sri Sathya Sai Sharadaniketanam, Mandya, is a boys' residential campus established under the divine guidance of Sadguru Sri Madhusudan Sai.
+      It offers completely free, values-based education from Grade 6 to Grade 12 under the NIOS curriculum. The campus nurtures students in a holistic environment that integrates academic excellence with spiritual and moral development.
+    </p>
+  </div>
+</div>
+
+<div class="bio">
+  <h2> About the Chairman</h2>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+    <img src="gourav.png" alt="Chairman Gaurav M." style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" />
+    <div style="flex: 1; font-size: 18px;">
+      <p>
+        <strong>Sri Gaurav M.</strong> serves as the <strong>Pradhanapalak (Chief Warden)</strong> and Chairman of Sri Sathya Sai Sharadaniketanam, Mandya. 
+        Under the guidance of Sadguru Sri Madhusudan Sai, he oversees all residential, academic, and spiritual affairs of the Gurukulam. 
+        With immense dedication and loving discipline, he nurtures the students like a father would — ensuring holistic growth in every aspect of life.
+      </p>
+      <a href="tel:+919380087929" style="text-decoration: none;">
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; background: #f0f0f0; padding: 10px 15px; border-left: 5px solid #007BFF; border-radius: 8px; font-size: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+          <img src="https://img.icons8.com/ios-filled/24/000000/phone.png" alt="Phone Icon" style="width: 20px; height: 20px;" />
+          <span style="color: #007BFF; font-weight: bold;">+91 93800 87929</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+  <div class="facilities">
+    <h2>🏫 Campus Facilities</h2>
+    <ul>
+      <li>Academic Block</li>
+      <li>Sai Chaya Hostel</li>
+      <li>Community Centre</li>
+      <li>Temples</li>
+      <li>Wellness Center</li>
+      <li>Playground</li>
+    </ul>
+  </div>
+
+  <div class="location">
+    <h2>📍 Campus Location</h2>
+    <p>
+      <strong>Sri Sathya Sai Sharadaniketanam, Mandya:</strong><br>
+      <a href="https://maps.app.goo.gl/Fu45ZsH41VPSurFf9" target="_blank">Visit on Google Maps</a>
+    </p>
+  </div>
+
+<!-- Team Section -->
+<div class="team-section">
+  <h2>👨‍💻 Meet the Creators of This Chatbot</h2>
+  <div class="team-grid">
+
+    <!-- Mentor Card -->
+    <div class="team-card">
+      <img src="teacher.png" alt="Suhas K.C" class="profile-img">
+      <div class="team-info">
+        <h4>Suhas K.C</h4>
+        <p>👨‍🏫 Mentor & Guide</p>
+      </div>
+    </div>
+
+    <!-- Student 1 -->
+    <div class="team-card">
+      <img src="madan.jpg" alt="Madan Gowda B.V" class="profile-img">
+      <div class="team-info">
+        <h4>Madan Gowda B.V</h4>
+        <p>💻 Student Developer</p>
+      </div>
+    </div>
+
+    <!-- Student 2 -->
+    <div class="team-card">
+      <img src="images/nandan.jpg" alt="Nandan GS" class="profile-img">
+      <div class="team-info">
+        <h4>Nandan GS</h4>
+        <p>🧠 Student Researcher</p>
+      </div>
+    </div>
+
+    <!-- Student 3 -->
+    <div class="team-card">
+      <img src="images/pratik.jpg" alt="Pratik Mudhole" class="profile-img">
+      <div class="team-info">
+        <h4>Pratik Mudhole</h4>
+        <p>🎨 UI/UX Student Designer</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .team-section {
+    padding: 40px;
+    background-color: #f0f4ff;
+    border-radius: 16px;
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+  }
+
+  .team-section h2 {
+    color: #3a0ca3;
+    margin-bottom: 40px;
+    font-size: 1.8rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    justify-items: center;
+  }
+
+  .team-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    max-width: 250px;
+    text-align: center;
+  }
+
+  .team-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .profile-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  .team-info {
+    padding: 20px;
+  }
+
+  .team-info h4 {
+    margin: 10px 0 6px;
+    font-size: 1.1rem;
+    color: #111;
+  }
+
+  .team-info p {
+    color: #555;
+    font-size: 0.95rem;
+  }
+</style>
+<style>
+  .chat-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 999;
+    background-color: #fffdr5;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+
+  .chat-window {
+    display: none;
+    position: fixed;
+    bottom: 110px;
+    right: 25px;
+    width: 360px;
+    max-height: 500px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    font-family: sans-serif;
+    z-index: 1000;
+  }
+
+  .chat-header {
+    background-color: #4b6cb7;
+    color: white;
+    padding: 14px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .chat-body {
+    padding: 14px;
+    height: 260px;
+    overflow-y: auto;
+    font-size: 16px;
+  }
+
+  .chat-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+  }
+
+  .chat-input button {
+    padding: 12px 16px;
+    background-color: #4b6cb7;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .message.bot {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .message.user {
+    background-color: #d1e7ff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    text-align: right;
+  }
+</style>
+
+<!-- Chat Button -->
+<button class="chat-button" onclick="toggleChat()">
+  <img src="Robo.png" alt="Chat Bot" style="width: 60px; height: 60px;" />
+</button>
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">Sai Campus Chat</div>
+  <div class="chat-body" id="chatBody">
+    <div class="message bot">🙏 Sai Ram! Ask me about campus facilities, routine, admissions, leaders, etc.</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your question..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  function toggleChat() {
+    const chatWindow = document.getElementById("chatWindow");
+    chatWindow.style.display = chatWindow.style.display === "none" || chatWindow.style.display === "" ? "block" : "none";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
+    if (message) {
+      const chatBody = document.getElementById("chatBody");
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.textContent = message;
+      chatBody.appendChild(userMsg);
+      input.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  }
+</script>
+  <script>
+    const teacherMap = {
+      "lokesh babu": "Social Studies – OBE (8th) & Secondary Arts (9th)",
+      "raju": "Principal – OBE Wing & Social Studies – OBE (6th)",
+      "prem chand": "Social Studies – OBE (7th) & Secondary Arts (9th)",
+      "praveen g": "Science – OBE | Physics – Secondary (10th)",
+      "sanjeev kumar": "Maths – OBE (7th) & Secondary (10th)",
+      "gireesh": "Maths – OBE (6th & 8th)",
+      "vasumathi": "Computer – OBE",
+      "nandish": "Chemistry/Biology – Secondary (9th & 10th)",
+      "jatin": "Physics – Secondary (9th)",
+      "gireesha": "Maths – Secondary (9th)",
+      "babu": "ICH – Secondary Arts/Science (9th)",
+      "manu": "ICH – Secondary Arts/Science (9th)",
+      "yogish": "ICH – Secondary (10th) & Social Studies – Arts (10th)",
+      "umakanth": "ICH – Secondary (10th) & Economics – Sr. Secondary",
+      "ambarish": "Computer – Secondary",
+      "chethan": "Head – Secondary Wing & Economics – Secondary (10th)",
+      "balakrishna": "Economics – Secondary (9th & 10th)",
+      "yogisha": "Social Studies – Secondary Arts (10th)",
+      "harshavardhan": "Head – Senior Secondary Wing & Economics – Senior Secondary",
+      "gangappa": "History – Senior Secondary",
+      "suhas": "Lecturer of Computer Science – Senior Secondary",
+      "sanganagouda patil": "Sanskrit – Senior Secondary",
+      "raghu": "English – Senior Secondary",
+      "sadguru": "Founder – Sri Sathya Sai Sharadaniketanam",
+      "karthik": "Upa Pradhanapalak Warden",
+    };
+
+    const QA = [
+  { keywords: ["founder", "sadguru", "madhusudhan"], reply: "🌟 Sadguru Sri Madhusudhan Sai founded over 30 campuses offering free, values-based education since 2011." },
+  { keywords: ["campus", "mandya", "sharadaniketanam"], reply: "🏜️ Mandya campus features Sai Chaya hostel, prayer halls, academic block, temples, wellness centre & more." },
+  { keywords: ["routine", "schedule", "daily"], reply: "🔉 Day starts at 5AM with Suprabhatam, yoga & meditation, followed by classes, bhajans, sports & rest." },
+  { keywords: ["education", "nios", "course"], reply: "🎓 We offer BCA, B.Com & B.A under the NIOS board with moral & spiritual enrichment." },
+  { keywords: ["admission", "apply", "eligibility"], reply: "📝 Open to rural boys. Entirely free including food, lodging, uniforms & healthcare." },
+  { keywords: ["facilities", "hostel", "library", "temple"], reply: "🏫 Facilities: Academic block, Sai Chaya hostel, temples, wellness centre, community centre, playground." },
+  { keywords: ["head", "principal", "staff", "leader"], reply: "👥 Heads: Sadguru (Founder), Sri Gaurav M. (Pradhanapalak), Sri Karthik (Upa Pradhanapalak), Sri Raju (OBE Principal), Sri Chaitan (Secondary), Sri Harshavardhan (Sr. Secondary)." },
+  { keywords: ["contact", "phone", "email"], reply: "📞 Email: gurukulam@ssslsg.org | 📞 +91 - 9731224548 / +91 - 8152968760" },
+  { keywords: ["location", "map", "where"], reply: 📍 <strong>Sri Sathya Sai Sharadaniketanam, Mandya</strong>:<br><a href="https://maps.app.goo.gl/Fu45ZsH41VPSurFf9" target="_blank">Google Maps 🗺️</a> },
+  { keywords: ["social", "media", "youtube", "whatsapp", "instagram", "follow", "channel"], reply: 📢 <strong>Connect With Us:</strong><br>🔴 <a href="https://www.youtube.com/channel/UC-p3e19_uTVvONGDPx6dkrQ" target="_blank">YouTube</a><br>💬 <a href="https://whatsapp.com/channel/0029VaiYKuI6GcGDMEtQzg2D" target="_blank">WhatsApp Channel</a><br>📸 <a href="https://www.instagram.com/sharadaniketanam_mdy/" target="_blank">Instagram</a> },
+  { keywords: ["dress code", "uniform", "clothes"], reply: "👕 Students wear white shirt and pants with a scarf. Uniform is provided by the campus." },
+  { keywords: ["food", "meals", "lunch", "dinner"], reply: "🍛 Yes, nutritious vegetarian food is served four times a day—breakfast, lunch, snacks, and dinner." },
+  { keywords: ["join after 10", "after 10th", "after tenth"], reply: "🎓 Yes, admissions are open for Grade 11 under Humanities stream (PUC)." },
+  { keywords: ["free", "no cost", "tuition fees"], reply: "💯 Yes, education including lodging, food, clothing, and medical care is completely free." },
+  { keywords: ["mobile", "phone", "smartphone"], reply: "📵 No, mobile phones are strictly not allowed for students." },
+  { keywords: ["medium", "language", "instruction"], reply: "🗣️ The medium of instruction is English, with importance given to Sanskrit and regional languages." },
+  { keywords: ["spiritual", "training", "bhajans", "prayers"], reply: "🕉️ Yes, students participate in daily prayers, bhajans, and value education sessions." },
+  { keywords: ["sports", "playground", "games"], reply: "⚽ Yes, the campus has a large playground for games and physical education." },
+  { keywords: ["volunteer", "help", "serve", "seva"], reply: "🙋 You can contact the administration via email or visit during seva events." },
+  { keywords: ["girls", "female", "sisters"], reply: "🙅‍♀️ This campus is for boys. Girls may apply to our sister campuses like Sri Sathya Sai Prashanthi Niketanam." },
+
+  // New room/location entries
+  { keywords: ["sai chaya hostel"], reply: "🏡 Sai Chaya Hostel is in a Separate Building.Behind academic block this building is a hostel for the students." },
+  { keywords: ["community centre"], reply: "Community Centre is located near ganesha temple this is a place where food is prepared for everyone in the campus." },
+  { keywords: ["temples"], reply: "⛪ Temples are within the Campus." },
+  { keywords: ["wellness center"], reply: "The Wellness Centre is near community centre in this place all the patients are treated it is a kind of rural Hospital." },
+  { keywords: ["classes"], reply: "📚 Classes are on the First & Second Floors." },
+  { keywords: ["library"], reply: "The library is on the first floor. From Saraswati Square, take the path to the right." },
+  { keywords: ["senior secondary principal office"], reply: "🧑‍🏫 Senior Secondary Principal Office is on the First Floor.From Saraswati Square, take the path to the left." },
+  { keywords: ["computer lab"], reply: "💻 Computer Lab is on the First Floor and Ground Floor." },
+  { keywords: ["obe principal office"], reply: " OBE Principal Office is on the First Floor.From Saraswati Square, take the path to the right." },
+  { keywords: ["secondary office room"], reply: "🏫 Secondary Office Room is on the First Floor." },
+  { keywords: ["administrative office"], reply: "📋 Administrative Office is on the First Floor.From Saraswati Square, take the path to the Left." },
+  { keywords: ["chairman office"], reply: "👤 Chairman Office is on the First Floor.From Saraswati Square, take the path to the Left." },
+  { keywords: ["sai hrudayam"], reply: "🙏 Sai Hrudayam Prayer Hall is the sacred heart of the campus — a space filled with peace, devotion, and divine presence.." },
+  { keywords: ["digital rooms"], reply: "💡 Digital Rooms are on the First Floor & Second Floor.From Saraswati Square, take the path to the Right." },
+  { keywords: ["obe classes floor"], reply: "📘 OBE Classes are on the First Floor.From Saraswati Square, take the path to the Right." },
+  { keywords: ["senior secondary floor"], reply: "📌 Senior Secondary Floor is the First Floor.From Saraswati Square, take the path to the Left." },
+  { keywords: ["secondary floor"], reply: "📌 Secondary Floor is the Second Floor." },
+  { keywords: ["chemistry lab"], reply: "🔬 Chemistry Lab is on the Second Floor." },
+  { keywords: ["maths lab"], reply: "➗ Maths Lab is on the Second Floor." },
+  { keywords: ["band room"], reply: "🎶 Band Room is on the Ground Floor." },
+  { keywords: ["stem lab"], reply: "🔧 STEM Lab is on the Second Floor." },
+  { keywords: ["sports room"], reply: "🏅 Sports Room is on the Second Floor." },
+  { keywords: ["drama room"], reply: "🎭 Drama Room is on the Ground Floor." }
+];
+
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+      chatWindow.style.flexDirection = 'column';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const chatBody = document.getElementById('chatBody');
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.innerText = message;
+      chatBody.appendChild(userMsg);
+
+      const msgLower = message.toLowerCase();
+      let reply = "🙏 I'm still learning. Try asking about routine, facilities, or admission.";
+
+      for (const [name, dept] of Object.entries(teacherMap)) {
+        if (msgLower.includes(name)) {
+          reply = 👨‍🏫 <strong>${name.toUpperCase()}</strong><br>📚 Department: ${dept};
+          break;
+        }
+      }
+
+      if (reply === "🙏 I'm still learning. Try asking about routine, facilities, or admission.") {
+        for (const item of QA) {
+          if (item.keywords.some(k => msgLower.includes(k))) {
+            reply = item.reply;
+            break;
+          }
+        }
+      }
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'message bot';
+      botMsg.innerHTML = reply;
+      chatBody.appendChild(botMsg);
+
+      input.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>
